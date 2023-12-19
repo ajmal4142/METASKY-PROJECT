@@ -13,13 +13,18 @@ import {
   Card,
   CardMedia,
   CardContent,
+  IconButton,
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import React, { useEffect, useState, ChangeEvent, useMemo } from "react";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { storeUserDetails } from "../utils/auth";
+import { storeUserDetails, toggleDarkMode } from "../utils/auth";
+import { RootState } from "../utils/store";
+import { useSelector } from "react-redux";
 
 interface User {
   name: {
@@ -55,9 +60,14 @@ const MainSection: React.FC = () => {
   const [lastIndex, setLastIndex] = useState<number>(50);
   const [users, setUsers] = useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
-  const [selectedNumber, setSelectedNumber] = useState<number>(100);
+  const [selectedNumber, setSelectedNumber] = useState<number>(200);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleDarkModeToggle = () => {
+    dispatch(toggleDarkMode());
+  };
+  const darkMode = useSelector((state: RootState) => state.darkMode);
 
   useEffect(() => {
     axios
@@ -149,7 +159,8 @@ const MainSection: React.FC = () => {
       border: "1px solid ",
       borderRadius: "10px",
       cursor: "pointer",
-      ":hover": {
+      transition: "background 0.3s ease",
+      "&:hover": {
         background: "#e0dede",
       },
     },
@@ -160,14 +171,15 @@ const MainSection: React.FC = () => {
       justifyContent: "center",
     },
     cardContainer: {
-      my: "20px",
       display: "flex",
-      gap: "20px",
+      gap: "5px",
       justifyContent: "flex-start",
       overflowX: "auto",
       width: "100%",
       overflowY: "hidden",
-      ml: "5px",
+      py: "10px",
+      pl: "2px",
+      m: "5px 0px 20px 5px",
       "&::-webkit-scrollbar": {
         display: "none",
       },
@@ -184,8 +196,8 @@ const MainSection: React.FC = () => {
       border: "0.5px solid rgba(0, 0, 0, 0.6)",
       transition: "transform 0.3s ease, box-shadow 0.3s ease",
       "&:hover": {
-        transform: "translatex(5px)",
-        boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.1)",
+        transform: "scale(1.05)",
+        boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
       },
     },
   };
@@ -197,13 +209,15 @@ const MainSection: React.FC = () => {
           <Box sx={styles.resultBox}>
             <Box textAlign="center" display="flex" gap="10px">
               <Typography variant="h6" sx={styles.header}>
-                No of users : {selectedNumber}
+                No of users :
               </Typography>
               <select
-                style={{ height: "25px", alignSelf: "center" }}
-                value={selectedNumber}
+                style={{
+                  height: "25px",
+                  alignSelf: "center",
+                  border: "0.1px solid",
+                }}
                 onChange={(e) => setSelectedNumber(Number(e.target.value))}>
-                <option>100</option>
                 <option>200</option>
                 <option>300</option>
                 <option>400</option>
@@ -229,7 +243,7 @@ const MainSection: React.FC = () => {
 
           {/* End of Search container */}
           <Typography
-            variant="h5"
+            variant="h6"
             sx={{
               fontSize: "20px",
               color: "rgba(0,0,0,0.6)",
@@ -277,14 +291,18 @@ const MainSection: React.FC = () => {
           </Box>
 
           {/* End of Card container */}
-
+          <Box>
+            <IconButton onClick={handleDarkModeToggle}>
+              {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+            </IconButton>
+          </Box>
           <TableContainer
             component={Paper}
             sx={{ marginBottom: "20px", background: "rgba(218,218,218,0.5)" }}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="left">ID</TableCell>
+                  <TableCell align="left">no</TableCell>
                   <TableCell>Name</TableCell>
                   <TableCell>User Name</TableCell>
                   <TableCell>Email</TableCell>

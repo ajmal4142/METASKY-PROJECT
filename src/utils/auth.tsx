@@ -37,7 +37,12 @@ const initialState: AuthState = {
   isLoggedIn: false,
   username: "",
   user: undefined,
+  darkMode: false,
 };
+
+export const toggleDarkMode = () => ({
+  type: "TOGGLE_DARK_MODE",
+});
 
 export const storeUserDetails = (user: UserDetails) => ({
   type: STORE_USER_DETAILS,
@@ -56,7 +61,8 @@ export const logout = () => ({
 export interface AuthState {
   isLoggedIn: boolean;
   username: string;
-  user?: UserDetails; // Include user details in the state
+  user?: UserDetails;
+  darkMode: boolean;
 }
 
 export type AuthAction =
@@ -90,6 +96,11 @@ const authReducer = (state = initialState, action: AuthAction): AuthState => {
         };
       }
       break;
+    case "TOGGLE_DARK_MODE":
+      return {
+        ...state,
+        darkMode: !state.darkMode,
+      };
     default:
       return state;
   }

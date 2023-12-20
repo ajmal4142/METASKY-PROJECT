@@ -1,19 +1,6 @@
-# Awesome Dashboard App
+# User App
 
-Welcome to the Awesome Dashboard App! This project is a sleek dashboard scenario that allows users to log in, view a list of users fetched from a dummy API, and search for users by name. The app is built using Next.js and TypeScript, with state management handled by Redux and custom hooks for efficient data retrieval.
-
-## Table of Contents
-
-- [Store (store.tsx)](#store-storetsx)
-- [Authentication Reducer (auth.tsx)](#authentication-reducer-authtsx)
-- [PersonalDetails Component](#personaldetails-component)
-- [MainSection Component](#mainsection-component)
-- [LogIn Component](#login-component)
-- [Performance and Optimization](#performance-and-optimization)
-- [Technologies Used](#technologies-used)
-- [Deployment](#deployment)
-
-## Store (store.tsx)
+Welcome to the User App! This project is a sleek dashboard scenario that allows users to log in, view a list of users fetched from a dummy API, and search for users by name. The app is built using Next.js and TypeScript, with state management handled by Redux and custom hooks for efficient data retrieval.
 
 - **Description:**
 
@@ -23,8 +10,6 @@ Welcome to the Awesome Dashboard App! This project is a sleek dashboard scenario
   - Combines reducers using `combineReducers` from Redux.
   - Utilizes a custom hook to access data from the API.
   - Configures the store with the combined reducer using `createStore`.
-
----
 
 ## Authentication Reducer (auth.tsx)
 

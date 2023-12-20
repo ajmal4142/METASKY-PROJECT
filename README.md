@@ -1,46 +1,133 @@
-# Getting Started with Create React App
+# Awesome Dashboard App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Awesome Dashboard App! This project is a sleek dashboard scenario that allows users to log in, view a list of users fetched from a dummy API, and search for users by name. The app is built using Next.js and TypeScript, with state management handled by Redux and custom hooks for efficient data retrieval.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Store (store.tsx)](#store-storetsx)
+- [Authentication Reducer (auth.tsx)](#authentication-reducer-authtsx)
+- [PersonalDetails Component](#personaldetails-component)
+- [MainSection Component](#mainsection-component)
+- [LogIn Component](#login-component)
+- [Performance and Optimization](#performance-and-optimization)
+- [Technologies Used](#technologies-used)
+- [Deployment](#deployment)
 
-### `npm start`
+## Store (store.tsx)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Description:**
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+  - Manages the global state using Redux for authentication and dark mode settings.
 
-### `npm test`
+- **Features:**
+  - Combines reducers using `combineReducers` from Redux.
+  - Utilizes a custom hook to access data from the API.
+  - Configures the store with the combined reducer using `createStore`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Authentication Reducer (auth.tsx)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Description:**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  - Handles state changes related to authentication, user details, and dark mode.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Features:**
+  - Defines actions for login success, logout, storing user details, and toggling dark mode.
+  - Maintains an initial state with isLoggedIn, username, user details, and dark mode.
+  - Utilizes TypeScript interfaces for state and user details.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## PersonalDetails Component
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Description:**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+  - Displays detailed information about a logged-in user.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- **Features:**
+  - Retrieves user and dark mode status from the Redux store.
+  - Uses MUI components for a clean and responsive layout.
+  - Displays user details, including name, picture, location, and contact information.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## MainSection Component
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Description:**
+
+  - Represents the main section of the dashboard with user data and search functionality.
+
+- **Features:**
+  - Retrieves user data from the randomuser.me API using Axios.
+  - Implements dark mode toggling and dispatches actions using Redux.
+  - Provides a search feature to filter users based on various criteria.
+  - Displays user cards, and a paginated table with additional details.
+
+---
+
+## LogIn Component
+
+- **Description:**
+
+  - Renders a login form for users to log in and sets authentication status.
+
+- **Features:**
+  - Manages user input for username and password.
+  - Validates input and dispatches a login success action to Redux.
+  - Uses local storage to persist login state.
+
+---
+
+## Performance and Optimization
+
+- **Lazy Loading:**
+
+  - Components are loaded dynamically, enhancing initial load times.
+
+- **Code Splitting:**
+
+  - Breaks down the app into smaller chunks for faster loading.
+
+- **Memoization:**
+
+  - Memoized selectors and components to prevent unnecessary re-renders.
+
+- **Axios Interceptors:**
+  - Utilizes Axios interceptors for efficient global configuration and response handling.
+
+---
+
+## Technologies Used
+
+- **React.js and TypeScript:**
+
+  - Employed for enhanced developer experience and static typing.
+
+- **Redux:**
+
+  - Manages state in a predictable way.
+
+- **Material-UI (MUI):**
+
+  - Integrates Material Design components for a modern and responsive UI.
+
+- **Axios:**
+  - Handles HTTP requests efficiently.
+
+---
+
+## Deployment
+
+- **Platform:**
+
+  - Deployed on Netlify for easy access and hosting.
+  - https://metasky-project.netlify.app
+
+- **Public Git Repo:**
+  - Hosted on a public Git repository for collaborative development.
+  - https://github.com/ajmal4142/metasky-project.git
+
+---
+
+Feel free to customize the README based on your project's specific details and additional features.

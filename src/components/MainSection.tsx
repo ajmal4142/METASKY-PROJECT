@@ -61,13 +61,18 @@ const MainSection: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [selectedNumber, setSelectedNumber] = useState<number>(200);
+  // const [darkMode, setDarkMode] = useState<boolean>(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const darkMode = useSelector((state: RootState) => state.auth.darkMode);
   const handleDarkModeToggle = () => {
-    dispatch(toggleDarkMode());
+    console.log("Before dispatch: ", darkMode);
+    dispatch(toggleDarkMode(darkMode));
   };
-  const darkMode = useSelector((state: RootState) => state.darkMode);
+
+  useEffect(() => {
+    console.log("Dark Mode Changed: ", darkMode);
+  }, [darkMode]);
 
   useEffect(() => {
     axios
@@ -79,11 +84,6 @@ const MainSection: React.FC = () => {
       })
       .catch((err) => console.log(err));
   }, [lastIndex, selectedNumber]);
-
-  useEffect(() => {
-    console.log(selectedNumber);
-    console.log(users);
-  }, [selectedNumber, users]);
 
   const handleSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -271,7 +271,7 @@ const MainSection: React.FC = () => {
                       variant="h6"
                       component="div"
                       sx={styles.cardContent}>
-                      {`${user.name.title} ${user.name.first} ${user.name.last}`}
+                      {` ${user.name.first} ${user.name.last}`}
                     </Typography>
                     <Typography
                       variant="body2"
@@ -298,8 +298,15 @@ const MainSection: React.FC = () => {
           </Box>
           <TableContainer
             component={Paper}
-            sx={{ marginBottom: "20px", background: "rgba(218,218,218,0.5)" }}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            sx={{
+              marginBottom: "20px",
+              background: darkMode
+                ? "rgba(0,0,0,0.5)"
+                : "rgba(218,218,218,0.5)",
+            }}>
+            <Table
+              sx={{ minWidth: 650, color: darkMode ? "white" : "red" }}
+              aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell align="left">no</TableCell>
@@ -318,7 +325,9 @@ const MainSection: React.FC = () => {
                       "&:last-child td, &:last-child th": { border: 0 },
                       cursor: "pointer",
                       ":hover": {
-                        background: "linear-gradient(to right,#cdcdcd,#ffffff)",
+                        background: darkMode
+                          ? "#979797"
+                          : "linear-gradient(to right,#cdcdcd,#ffffff)",
                       },
                     }}
                     onClick={() => handleRowClick(row)}>

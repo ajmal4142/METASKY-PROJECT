@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../utils/store";
 import { Typography, Grid, Avatar, Card } from "@mui/material";
 
 const PersonalDetails: React.FC = () => {
   const user = useSelector((state: RootState) => state.auth.user);
+  const darkMode = useSelector((state: RootState) => state.auth.darkMode);
+
+  useEffect(() => {
+    console.log(darkMode);
+  }, [darkMode]);
 
   if (!user) {
     return <div>Please log in to view personal details.</div>;

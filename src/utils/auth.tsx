@@ -2,6 +2,7 @@
 const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 const LOGOUT = "LOGOUT";
 const STORE_USER_DETAILS = "STORE_USER_DETAILS";
+const TOGGLE_DARK_MODE = "TOGGLE_DARK_MODE";
 
 // Define a new interface for user details
 export interface UserDetails {
@@ -40,8 +41,9 @@ const initialState: AuthState = {
   darkMode: false,
 };
 
-export const toggleDarkMode = () => ({
-  type: "TOGGLE_DARK_MODE",
+export const toggleDarkMode = (darkMode: boolean) => ({
+  type: TOGGLE_DARK_MODE,
+  payload: { darkMode },
 });
 
 export const storeUserDetails = (user: UserDetails) => ({
@@ -96,11 +98,14 @@ const authReducer = (state = initialState, action: AuthAction): AuthState => {
         };
       }
       break;
-    case "TOGGLE_DARK_MODE":
-      return {
-        ...state,
-        darkMode: !state.darkMode,
-      };
+    case TOGGLE_DARK_MODE:
+      if ("payload" in action && "darkMode" in action.payload) {
+        return {
+          ...state,
+          darkMode: !action.payload.darkMode,
+        };
+      }
+      break;
     default:
       return state;
   }
